@@ -20,13 +20,18 @@ app.post('/', (req, res) => {
     res.send('The answer is ' + result )
 })
 
+app.get('/bmiCalculator', (req, res) => {
+    res.sendFile(__dirname + '/bmiCalculator.html')
+})
 
+app.post('/bmiCalculator', (req, res) => {
+    var weight = parseFloat(req.body.weight)
+    var height = parseFloat(req.body.height)
 
+    var result = weight/(height) ** 2
 
-
-
-
-
+    res.send('Your BMI is ' + result.toFixed(2))
+})
 
 
 
