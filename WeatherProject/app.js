@@ -9,7 +9,11 @@ app.get('/', (req, res) => {
 
     const url = 'https://random-data-api.com/api/v2/users?size=2&is_xml=true'
     https.get(url, (response) => {
-        console.log(response)
+        response.on('data', (data) => {
+            const randomData = JSON.parse(data)
+            const title = randomData[0].employment.key_skill
+            console.log(title)
+        } )
     })
 
     res.send('work in progress')
