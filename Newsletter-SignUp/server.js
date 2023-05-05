@@ -20,7 +20,18 @@ app.post('/', (req, res) => {
     const firstName = req.body.firstName
     const lastName = req.body.lastName
     const email = req.body.email
-    console.log(firstName + ' ' + lastName + ' ' + email)
+    
+    var data = {
+        members: [
+            {
+                email_address: email,
+                status: 'subscribed'
+            }
+        ]
+    }
+
+
+
     res.send()
 })
 
