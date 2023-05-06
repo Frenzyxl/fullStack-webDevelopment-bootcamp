@@ -2,6 +2,7 @@
 const express = require('express')
 const https = require('https')
 const bodyParser = require('body-parser')
+require('dotenv').config()
 const app = express()
 
 app.use(express.static('public'))
@@ -17,11 +18,11 @@ app.post('/', (req, res) => {
     const firstName = req.body.firstName
     const lastName = req.body.lastName
     const email = req.body.email
-    const url = 'https://us17.api.mailchimp.com/3.0/lists/cb27c91c20'
+    const url = `https://us17.api.mailchimp.com/3.0/lists/${process.env.AUDIENCE_ID}`
 
     const options = {
         method: 'POST',
-        auth: 'frenzyxl:357e95f3270874b7b537ef02218287e8-us17'
+        auth: `frenzyxl:${process.env.MAILCHIMP_API}`
     }
 
     const data = {
