@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 const app = express()
 
+app.engine('html', require('ejs').renderFile)
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -41,14 +42,25 @@ app.post('/', (req, res) => {
     const jsonData = JSON.stringify(data)
 
     const request = https.request(url, options, (response) => {
+
+       
         response.on('data', (data) => {
-            console.log(JSON.parse(data))
+            const theData = JSON.parse(data)
+            if (response.statusCode === 200 && !theData.errors[0]) {
+                res.sendFile(__dirname + '/sucess.html')
+            } else {
+                res.render(__dirname +'/failure.html', {error:theData.errors[0].error})
+            }
+            
         })
     })
 
     request.write(jsonData)
     request.end()
+})
 
+app.post('/failure', (req, res) => {
+    res.redirect('/')
 })
 
 
