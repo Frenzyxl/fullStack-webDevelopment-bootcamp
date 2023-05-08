@@ -9,7 +9,7 @@ app.engine('html', require('ejs').renderFile)
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: true}))
 
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/signup.html')
