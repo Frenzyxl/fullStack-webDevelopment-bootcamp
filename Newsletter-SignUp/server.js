@@ -46,10 +46,10 @@ app.post('/', (req, res) => {
        
         response.on('data', (data) => {
             const theData = JSON.parse(data)
-            if (response.statusCode === 200 && !theData.errors[0]) {
+            if (response.statusCode === 200 ) {
                 res.sendFile(__dirname + '/sucess.html')
             } else {
-                res.render(__dirname +'/failure.html', {error:theData.errors[0].error})
+                res.render(__dirname +'/failure.html')
             }
             
         })
